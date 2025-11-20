@@ -1,0 +1,21 @@
+blob_data_source = "azure_blob_storage"
+
+blob_connection_string = "DefaultEndpointsProtocol=https;BlobEndpoint=https://wpcuseiudmstorage.blob.core.windows.net/;SharedAccessSignature=sp=racwdl&st=2025-09-15T05:54:12Z&se=2025-11-28T14:09:12Z&spr=https&sv=2024-11-04&sr=c&sig=rnBt%2B%2Bmbm56wN2eD0s3BIvDd1KuqkbNi%2Bkh9ROB6IKQ%3D
+"
+
+
+blob_container_name = "useiudmparquet"
+
+blob_storage_account = "wpcuseiudmstorage"
+
+blob_sas_token = "sp=racwdl&st=2025-09-15T05:54:12Z&se=2025-11-28T14:09:12Z&spr=https&sv=2024-11-04&sr=c&sig=rnBt%2B%2Bmbm56wN2eD0s3BIvDd1KuqkbNi%2Bkh9ROB6IKQ%3D"
+
+
+postgres_url_shakti = "jdbc:postgresql://psql-wilson-perumal-dev.postgres.database.azure.com:5432/postgres?sslmode=require"
+postgres_url = "jdbc:postgresql://psql-wilson-perumal-dev.postgres.database.azure.com:5432/saputo_db?sslmode=require"
+
+
+postgres_user = "adminwilson"
+
+postgres_password = "Mathco@000"
+
