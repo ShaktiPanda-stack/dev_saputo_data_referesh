@@ -1,0 +1,110 @@
+udm_arca_mapping:
+  BILL TO_CustomerID: bill_to_customer_id
+  BILL TO_CustomerName: bill_to_customer_name
+  CustomerSize: customer_size
+  CommodityCode: commodity_code
+  ParentCommCode: parent_commodity_code
+  PriceBranchID: price_branch_id
+  PriceBranchGlRegionID: price_branch_region_id
+  ProductID: product_id
+  CommDesc: commodity_description
+  ShipQty: order_quantity
+  Return?: is_return
+  Returns: returns_cost
+  PriceClass: customer_price_class
+  CustomerSegmentSummary: customer_segment
+  MarketCategory: market_category
+  Net Revenue: net_revenue
+  CustomerType: customer_type
+  CustomerCity: customer_city
+  CustomerState: customer_state
+  ProductType: product_category
+  ProductName: product_name
+  ReturnCodeBroad: return_reason_code
+  OutsideSalesID: outside_sales_id
+  Price: actual_pricing
+  PriceOverridden: system_pricing
+  PriceOverrideCost: price_override_cost
+  PriceOverride?: is_price_overriden
+  Variable Transaction Costs: tier_1_cost
+  Semi-Variable Transaction Costs: tier_2_cost
+  Semi-Fixed Systemic Costs: tier_3_cost
+  Fixed Systemic Costs: tier_4_cost
+  Cost to Serve: cost_to_serve
+  COGS: cogs
+  Tier 1 Costs less COGS: tier_1_cost_less_cogs
+  Return Handling Ops Labor: return_handling_labor_cost
+  Return Freight: return_freight_cost
+  Handling Ops Labor: order_handling_cost
+  Enterprise Profit: net_enterprise_profit
+  GrossProift: gross_profit
+  InvoiceIDLine: order_line
+  InvoiceDate: invoice_date
+  OrderDate: order_date
+  LedgerID: ledger_id
+  PriceMatrixID: price_class_matrix_id
+  MatrixSellGroup: matrix_sell_group
+  Profit Post Tier 2: enterprise_profit
+udm_pa_mapping:
+  PriceBranchID: price_branch_id
+  PriceBranchGlRegionID: price_branch_gl_region_id
+  PriceBranchLAT: price_branch_lat
+  PriceBranchLONG: price_branch_long
+  PriceBranchType: price_branch_type
+  PriceBranchSubType: price_branch_sub_type
+  PriceBranchCity: price_branch_city
+  PriceBranchState: price_branch_state
+  PriceBranchFTEs: price_branch_ftes
+  PriceBranchManager: price_branch_manager
+  BILL TO_CustomerID: bill_to_customer_id
+  BILL TO_CustomerName: bill_to_customer_name
+  CustomerSegmentSummary: customer_segment_summary
+  MarketCategory: market_category
+  CustomerSize: customer_size
+  CustomerCity: customer_city
+  CustomerState: customer_state
+  PriceClass: price_class
+  CustomerType: customer_type
+  ProductType: product_type
+  OutsideSalesID: outside_sales_id
+  OrderChannel: order_channel
+  OrderDate: order_date
+  Variable Transaction Costs: variable_transaction_costs
+  Returns: returns
+  Return Handling Ops Labor: return_handling_ops_labor
+  Return Freight: return_freight
+  PriceOverrideCost: price_override_cost
+  Net Revenue: net_revenue
+  ProductID: product_id
+  Total Handling Ops Labor - Fulfillment: total_handling_ops_labor_fulfillment
+  ShipQty: ship_qty
+  LedgerID: ledger_id
+  PriceOverride?: is_price_override
+  InvoiceIDLine: invoice_id_line
+  Return?: is_return
+  Bad Debt: bad_debt
+  Bonuses & Profit Share: bonuses_and_profit_share 
+  COGS: cogs 
+  Cost to Serve: cost_to_serve 
+  Cred Card Fees: cred_card_fees
+  Credit & Collections: credit_and_collections
+  Customer Discounts: customer_discounts
+  Customer Rebates: customer_rebates
+  Enterprise Profit: enterprise_profit
+  Fixed Systemic Costs: fixed_systemic_costs
+  GrossProift: gross_profit
+  IB Freight: ib_freight
+  Inside Sales: inside_sales
+  OB Freight: ob_freight
+  Outside Sales: outside_sales
+  Price: price
+  PriceOverridden: price_overridden 
+  Profit Post Tier 1: profit_post_tier_1
+  Profit Post Tier 2: profit_post_tier_2
+  Sales Commissions: sales_commissions
+  Semi-Fixed Systemic Costs: semi_fixed_systemic_costs
+  Service Charges: service_charges
+  Travel & Ent: travel_and_ent
+  Vendor Discounts: vendor_discounts
+  Vendor Rebates: vendor_rebates
+  Vehicle Costs OB Freight: vehicle_costs_ob_freight

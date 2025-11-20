@@ -1,0 +1,111 @@
+# ----------------------------------------------------------------------
+# YAML Configuration for Dimension Data Validation Rules
+# 
+# This configuration is used by the `Validations` class to apply 
+# multiple layers of quality checks on the Dimension dataset.
+# 
+# Structure & Description:
+#
+# - validation_score_required: Minimum overall Data Quality Score (%) required 
+#   for pipeline success. Failing this will stop further execution.
+#
+# - column_existence: List of required columns that must exist in the dataset.
+#
+# - primary_key_validation: Combination of columns that must form a unique key.
+#   Duplicate rows based on these will be flagged.
+#
+# - null_threshold_validation: Specifies max allowable null percentage per column.
+#   A value of `0` means nulls are not allowed at all.
+#
+# - datatype_validation: Expected Spark data types per column.
+#
+# - min_range_validation / max_range_validation: Indicates that the column should 
+#   have numeric values within an acceptable range (actual limits may be inferred 
+#   from business rules or derived dynamically).
+#
+# - flag_column_validation: Meant for binary indicators.
+#
+# - format_validation:  Intended for regex or date patterns.
+#
+# - business_rule_validation: Placeholder for complex rule checks (e.g. cross-field).
+#
+# - data_freshness_validation: Placeholder for validating if the dataset is 
+#   updated within an acceptable timeframe.
+# ----------------------------------------------------------------------
+validation_score_required: 50
+
+column_existence:
+  - 'l3_customer'
+  - 'product_distance'
+  - 'production_plant' 
+  - 'fulfillment_warehouse'
+  - 'product_type'
+  - 'kosher_indicator'
+  - 'organic_indicator'
+  - 'gmo_indicator' 
+  - 'lactose_indicator' 
+  - 'brand'
+  - 'packaging'
+  - 'distribution_channel'
+  - 'load_date'
+  
+primary_key_validation: 
+  - 'l3_customer'
+  - 'product_distance'
+  - 'production_plant' 
+  - 'fulfillment_warehouse'
+  - 'product_type'
+  - 'kosher_indicator'
+  - 'organic_indicator'
+  - 'gmo_indicator' 
+  - 'lactose_indicator' 
+  - 'brand'
+  - 'packaging'
+  - 'distribution_channel'
+
+null_threshold_validation:
+  l3_customer : 0
+  product_distance : 0
+  production_plant : 0
+  fulfillment_warehouse : 0
+  product_type : 0
+  kosher_indicator : 0
+  organic_indicator : 0
+  gmo_indicator : 0
+  lactose_indicator : 0
+  brand : 0
+  packaging : 0
+  distribution_channel : 0
+
+datatype_validation:
+  l3_customer : STRING
+  product_distance : STRING
+  production_plant : STRING
+  fulfillment_warehouse : STRING
+  product_type : STRING
+  kosher_indicator : STRING
+  organic_indicator : STRING
+  gmo_indicator : STRING
+  lactose_indicator : STRING
+  brand : STRING
+  packaging : STRING
+  distribution_channel : STRING
+
+
+min_range_validation: None
+
+max_range_validation: None
+
+flag_column_validation:
+  kosher_indicator : ["Kosher","Non - Kosher"]
+  organic_indicator : ["Organic","Non - Organic"]
+  gmo_indicator : ["Non - GMO","GMO"]
+  lactose_indicator : ["Lactose - Free","Contains Lactose"]
+
+
+
+format_validation: None
+  
+business_rule_validation: None
+
+data_freshness_validation: None

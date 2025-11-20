@@ -1,0 +1,9 @@
+# Column name mappings for price matrix-related data transformations
+
+EffectiveDate: effective_date              # Date the pricing or matrix configuration takes effect
+EclipseMatrixId: price_class_matrix_id     # Unique ID referencing the Eclipse price class matrix
+MatrixID_ADJ: matrix_adj_id                # Adjusted matrix ID used for internal mapping/transformations
+PM_Part1: pm_1                             # First segment of a parsed or derived pricing matrix string
+PM_Part2: pm_2                             # Second segment of the parsed pricing matrix string
+PM_Part3: pm_3                             # Third segment of the parsed pricing matrix string
+PriceFormulaCleaned: price_formula         # Cleaned and standardized version of the price formula
