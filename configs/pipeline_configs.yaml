@@ -1,0 +1,207 @@
+save_locally: True
+tables_to_update_in_db : ['t_benchmark', "t_dimensions","t_sales_metric" ]
+
+dev:
+  pg_schema_name: 'ca_dev'
+
+# t_dimensions:
+#   primary_keys: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+#                 'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging','distribution_channel']
+#   level_of_data: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+#                 'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging','distribution_channel']
+#   req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+#                "L3 Customer Name",'Primary Production Plant Name','Source Plant Name',"Product Distance Zone" ,"Distribution Channel Text" ,"Invoice Date", "Order Type - Dairy Cheese",'Fiscal Year']               
+  # derived_dimension_columns : [ "L3 Customer Name", "Product Distance Zone", "Primary Production Plant Name", 'Source Plant Name', "IBP Group 2 Text",
+  #                                "Kosher Indicator", "Organic Indicator", "Non-GMO Indicator", "Lactose Free Indicator", "Product Brand Type Text",
+  #                                 "Asset Type", "Distribution Channel Text","Order Type - Dairy Cheese",'Fiscal Year']
+  # derived_fact_columns: []
+  # agg_derived_dimension_columns: []
+  # agg_derived_fact_columns: []
+
+
+t_dimensions:
+  primary_keys: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging','distribution_channel']
+  level_of_data: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging','distribution_channel']
+  req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+               "L3 Customer Name",'Primary Production Plant Name','Fulfillment Facility Name',"Product Distance Zone" ,"Distribution Channel Text" ,"Invoice Date", "Order Type - Dairy Cheese",'Fiscal Year']
+               
+  derived_dimension_columns : [ "L3 Customer Name", "Product Distance Zone", "Primary Production Plant Name", 'Fulfillment Facility Name', "IBP Group 2 Text",
+                                 "Kosher Indicator", "Organic Indicator", "Non-GMO Indicator", "Lactose Free Indicator", "Product Brand Type Text",
+                                  "Asset Type", "Distribution Channel Text","Order Type - Dairy Cheese",'Fiscal Year']
+  derived_fact_columns: []
+  agg_derived_dimension_columns: []
+  agg_derived_fact_columns: []
+
+# 
+t_sales_metric:
+  primary_keys: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  level_of_data: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging','order_type']
+  req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+               "L3 Customer Name",'Primary Production Plant Name','Fulfillment Facility Name',"Product Distance Zone"  ,"Invoice Date","Net Revenue","Order Quantity - Pounds", 'Tier 2 Total','Tier 1 Total','Tier 3 Total','Tier 4 Total','Cost to Serve','Enterprise Profit','Interplant Freight | Allocation',
+               "Interplant Freight | Allocation","WH Handling - Interplant | Allocation","Plant Ops - Non-Value | Allocation","Plant Ops - Conversion - Filling & Packaging | Allocation","Plant Ops - Conversion - Production & Processing | Allocation","Plant Ops - Testing | Allocation","Plant Ops - Milk Receiving | Allocation","Fiscal Year","Order Type - Dairy Cheese"]
+  sum_cols : ['net_revenue', 'Order Quantity - Pounds']
+  cost_cols : [  "cost_to_serve","cost_to_serve_pct_sales","cost_to_serve_per_lb",
+   "tier_2", "tier_2_pct_sales", "tier_2_per_lb",
+    "tier_3","tier_3_pct_sales","tier_3_per_lb",
+     "tier_2_3","tier_2_3_pct_sales","tier_2_3_per_lb",
+      "enterprise_profit", "enterprise_profit_pct_sales", "enterprise_profit_per_lb", 
+       "interplant_logistics","interplant_logistics_pct_sales","interplant_logistics_per_lb",
+        "plant_ops","plant_ops_pct_sales","plant_ops_per_lb","net_revenue","net_revenue_per_lb"]
+  cost_col_origin : [ "cost_to_serve", "tier_2", "tier_3", "tier_2_3", "enterprise_profit",  "interplant_logistics", "plant_ops",'net_revenue']
+
+  derived_dimension_columns: []
+  derived_fact_columns: ['order_count', 'sku_count', 'commodity_count', 'return_order_count']
+  agg_derived_dimension_columns: ['net_customer_spend']
+  agg_derived_fact_columns: []
+  
+t_benchmark:
+  primary_keys: ['bill_to_customer_id', 'commodity_code', 'product_category']
+  level_of_data: ['bill_to_customer_id', 'commodity_code', 'product_category']
+  req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+               "L3 Customer Name",'Primary Production Plant Name','Fulfillment Facility Name',"Product Distance Zone"  ,"Distribution Channel Text","Invoice Date",
+               "Calendar Date","Net Revenue","Order Quantity - Pounds", 'Tier 2 Total','Tier 1 Total','Tier 3 Total','Tier 4 Total','Cost to Serve','Enterprise Profit','Interplant Freight | Allocation',
+               "Interplant Freight | Allocation","WH Handling - Interplant | Allocation","Plant Ops - Non-Value | Allocation","Plant Ops - Conversion - Filling & Packaging | Allocation","Plant Ops - Conversion - Production & Processing | Allocation","Plant Ops - Testing | Allocation","Plant Ops - Milk Receiving | Allocation", "Order Type - Dairy Cheese"]
+  cost_col_origin : [ "cost_to_serve", "tier_2", "tier_3", "tier_2_3", "enterprise_profit",  "interplant_logistics", "plant_ops", "net_revenue"]
+  cost_cols : ["cost_to_serve","cost_to_serve_pct_sales","cost_to_serve_per_lb",
+   "tier_2", "tier_2_pct_sales", "tier_2_per_lb",
+    "tier_3","tier_3_pct_sales","tier_3_per_lb",
+     "tier_2_3","tier_2_3_pct_sales","tier_2_3_per_lb",
+      "enterprise_profit", "enterprise_profit_pct_sales", "enterprise_profit_per_lb", 
+       "interplant_logistics","interplant_logistics_pct_sales","interplant_logistics_per_lb",
+        "plant_ops","plant_ops_pct_sales","plant_ops_per_lb","net_revenue","net_revenue_per_lb"]
+
+  common_cols: ['order_type','l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging','distribution_ibp','Quarter_Label']
+
+  clean_df_names : ['cost_to_serve', 'cost_to_serve_pct_sales', 'cost_to_serve_per_lb', 'tier_2', 'tier_2_pct_sales', 'tier_2_per_lb', 'tier_3', 'tier_3_pct_sales', 'tier_3_per_lb', 'tier_2_3', 'tier_2_3_pct_sales', 'tier_2_3_per_lb', 'enterprise_profit', 'enterprise_profit_pct_sales', 'enterprise_profit_per_lb', 'interplant_logistics', 'interplant_logistics_pct_sales', 'interplant_logistics_per_lb', 'plant_ops', 'plant_ops_pct_sales', 'plant_ops_per_lb','net_revenue', 'net_revenue_per_lb']
+  derived_dimension_columns: []
+  derived_fact_columns: ['order_count', 'return_order_count']
+  agg_derived_dimension_columns: []
+  agg_derived_fact_columns: []
+
+t_rfm:
+  primary_keys: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  level_of_data: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+               "L3 Customer Name",'Primary Production Plant Name','Fulfillment Facility Name',"Product Distance Zone"  ,"Distribution Channel Text","Calendar Date","Invoice Date","Net Revenue","Order Quantity - Pounds"]
+  sum_cols : ['Net Revenue', 'Order Quantity - Pounds']
+  cost_cols : [  "cost_to_serve","cost_to_serve_pct_sales","cost_to_serve_per_lb",
+   "tier_2", "tier_2_pct_sales", "tier_2_per_lb",
+    "tier_3","tier_3_pct_sales","tier_3_per_lb",
+     "tier_2_3","tier_2_3_pct_sales","tier_2_3_per_lb",
+      "enterprise_profit", "enterprise_profit_pct_sales", "enterprise_profit_per_lb", 
+       "interplant_logistics","interplant_logistics_pct_sales","interplant_logistics_per_lb",
+        "plant_ops","plant_ops_pct_sales","plant_ops_per_lb"]
+  cost_col_origin : [ "cost_to_serve", "tier_2", "tier_3", "tier_2_3", "enterprise_profit",  "interplant_logistics", "plant_ops"]
+
+t_rfm_outliers:
+  primary_keys: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  level_of_data: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+               "L3 Customer Name",'Primary Production Plant Name','Fulfillment Facility Name',"Product Distance Zone"  ,"Distribution Channel Text","Invoice Date","Net Revenue","Order Quantity - Pounds", 'Tier 2 Total','Tier 1 Total','Tier 3 Total','Tier 4 Total','Cost to Serve','Enterprise Profit','Interplant Freight | Allocation',"Calendar Date",
+               "Interplant Freight | Allocation","WH Handling - Interplant | Allocation","Plant Ops - Non-Value | Allocation","Plant Ops - Conversion - Filling & Packaging | Allocation","Plant Ops - Conversion - Production & Processing | Allocation","Plant Ops - Testing | Allocation","Plant Ops - Milk Receiving | Allocation"]
+  sum_cols : ['Net Revenue', 'Order Quantity - Pounds']
+  cost_cols : [  "cost_to_serve","cost_to_serve_pct_sales","cost_to_serve_per_lb",
+   "tier_2", "tier_2_pct_sales", "tier_2_per_lb",
+    "tier_3","tier_3_pct_sales","tier_3_per_lb",
+     "tier_2_3","tier_2_3_pct_sales","tier_2_3_per_lb",
+      "enterprise_profit", "enterprise_profit_pct_sales", "enterprise_profit_per_lb", 
+       "interplant_logistics","interplant_logistics_pct_sales","interplant_logistics_per_lb",
+        "plant_ops","plant_ops_pct_sales","plant_ops_per_lb", "net_revenue","net_revenue_per_lb"]
+  cost_col_origin : [ "cost_to_serve", "tier_2", "tier_3", "tier_2_3", "enterprise_profit",  "interplant_logistics", "plant_ops","net_revenue"]
+
+
+t_recency_frequency:
+  primary_keys: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  level_of_data: ['l3_customer', 'product_distance','production_plant','fulfillment_warehouse','product_type','kosher_indicator',
+                'organic_indicator','gmo_indicator','lactose_indicator','brand','packaging']
+  req_cols : ["IBP Group 2 Text","Kosher Indicator","Non-GMO Indicator",'Organic Indicator','Lactose Free Indicator','Product Brand Type Text','Asset Type',
+               "L3 Customer Name",'Primary Production Plant Name','Fulfillment Facility Name',"Product Distance Zone"  ,"Distribution Channel Text","Invoice Date","Net Revenue","Order Quantity - Pounds", 'Tier 2 Total','Tier 1 Total','Tier 3 Total','Tier 4 Total','Cost to Serve','Enterprise Profit','Interplant Freight | Allocation',"Calendar Date",
+               "Interplant Freight | Allocation","WH Handling - Interplant | Allocation","Plant Ops - Non-Value | Allocation","Plant Ops - Conversion - Filling & Packaging | Allocation","Plant Ops - Conversion - Production & Processing | Allocation","Plant Ops - Testing | Allocation","Plant Ops - Milk Receiving | Allocation"]
+  sum_cols : ['net_revenue', 'Order Quantity - Pounds']
+  cost_cols : [  "cost_to_serve","cost_to_serve_pct_sales","cost_to_serve_per_lb",
+   "tier_2", "tier_2_pct_sales", "tier_2_per_lb",
+    "tier_3","tier_3_pct_sales","tier_3_per_lb",
+     "tier_2_3","tier_2_3_pct_sales","tier_2_3_per_lb",
+      "enterprise_profit", "enterprise_profit_pct_sales", "enterprise_profit_per_lb", 
+       "interplant_logistics","interplant_logistics_pct_sales","interplant_logistics_per_lb",
+        "plant_ops","plant_ops_pct_sales","plant_ops_per_lb"
+        ,"net_revenue",
+        "net_revenue_per_lb"
+        ]
+  cost_col_origin : [ "cost_to_serve", "tier_2", "tier_3", "tier_2_3", "enterprise_profit",  "interplant_logistics", "plant_ops",'net_revenue']
+
+
+# t_pa_price_branch_details:
+#   primary_keys: ['price_branch_id']
+#   level_of_data: ['price_branch_id']
+#   req_cols : ['PriceBranchID','PriceBranchGlRegionID','PriceBranchLAT','PriceBranchLONG','PriceBranchType','PriceBranchSubType','PriceBranchCity','PriceBranchState', 'PriceBranchFTEs','PriceBranchManager']
+#   output_file_name: 't_pa_price_branch_details.parquet'
+
+# t_pa_customer_details:
+#   primary_keys: ['bill_to_customer_id']
+#   level_of_data: ['bill_to_customer_id']
+#   req_cols : ['BILL TO_CustomerID','BILL TO_CustomerName','CustomerSegmentSummary','MarketCategory','PriceClass','CustomerSize','CustomerCity','CustomerState','CustomerType']
+#   output_file_name: 't_pa_customer_details.parquet'
+
+# t_pa_customer_agg:
+#   req_cols : ['Bad Debt', 'BILL TO_CustomerID', 'Bonuses & Profit Share', 'COGS', 'Cost to Serve', 'Cred Card Fees', 
+#   'Credit & Collections', 'Customer Discounts','Customer Rebates', 'Enterprise Profit', 'Fixed Systemic Costs','GrossProift', 
+#   'IB Freight', 'Inside Sales', 'Net Revenue', 'OB Freight', 'InvoiceDate', 'Outside Sales', 'Price', 'PriceOverride?', 'PriceOverrideCost', 'PriceOverridden', 'Profit Post Tier 1', 'Profit Post Tier 2', 'Return Freight','ShipQty', 
+#   'Return Handling Ops Labor', 'Sales Commissions', 'Semi-Fixed Systemic Costs', 'Service Charges', 'Travel & Ent',
+#   'Total Handling Ops Labor - Fulfillment', 'Variable Transaction Costs', 'Vendor Discounts', 'Vendor Rebates', 
+#   'Vehicle Costs OB Freight']
+#   sum_cols : ['ShipQty', 'Bad Debt', 'Bonuses & Profit Share', 'COGS','Cost to Serve', 'Cred Card Fees', 'Credit & Collections', 'Customer Discounts', 'Customer Rebates', 'Enterprise Profit', 'Fixed Systemic Costs', 'GrossProift', 'IB Freight', 'Inside Sales', 'Net Revenue', 'OB Freight', 'Outside Sales', 'PriceOverrideCost', 'Profit Post Tier 1', 'Profit Post Tier 2', 'Return Freight', 'Return Handling Ops Labor', 'Sales Commissions', 'Semi-Fixed Systemic Costs', 'Service Charges', 'Total Handling Ops Labor - Fulfillment', 'Travel & Ent', 'Variable Transaction Costs', 'Vendor Discounts', 'Vendor Rebates', 'Vehicle Costs OB Freight']
+#   groupbycols: ['bill_to_customer_id','time_period']
+#   time_periods: ['L3','L6','L12','YTD']
+#   pct_cols: ['bad_debt','bonuses_and_profit_share','cogs','cost_to_serve','credit_and_collections','customer_discounts','customer_rebates','enterprise_profit','fixed_systemic_costs','ib_freight','inside_sales','ob_freight','outside_sales','profit_post_tier_1','profit_post_tier_2','return_freight','return_handling_ops_labor','sales_commissions','semi_fixed_systemic_costs','service_charges','total_handling_ops_labor_fulfillment','travel_and_ent','variable_transaction_costs','vehicle_costs_ob_freight']
+#   output_file_name: 't_pa_customer_agg.parquet'
+
+# t_pa_customer_invoice_agg:
+#   req_cols: ['PriceBranchID','ProductType','BILL TO_CustomerID','OutsideSalesID','OrderChannel', 'InvoiceDate','Variable Transaction Costs','Cost to Serve','Enterprise Profit','Returns', 'Return Handling Ops Labor','Return Freight','PriceOverrideCost','Net Revenue','ProductID', 'Total Handling Ops Labor - Fulfillment','ShipQty', 'LedgerID','PriceOverride?','InvoiceIDLine','Return?']
+#   groupbycols : ['price_branch_id','product_type','bill_to_customer_id','sales_account_type', 'order_channel','time_period']
+#   time_periods: ['L3','L6','L12','YTD']
+#   sum_exc_cols: ['invoice_date', 'product_id', 'ledger_id', 'is_price_override','invoice_id_line','is_return','outside_sales_id']
+#   output_file_name: 't_pa_customer_invoice_agg.parquet'
+
+# similarity_model_enhanced:
+#   req_cols: ["BILL TO_CustomerID", "CommodityCode", "OrderDate", "AdjShipQty", "Net Revenue", "LedgerID", "OrderChannel", "InvoiceIDLine", "PriceBranchType","BILL TO_CustomerName", "ProductID", "ExtendedPrice", "ExtendedCOGSCost", "PriceClass", "Rank1", "AdjDirectQty", "AdjOrderQty", "PriceBranchGlRegionID","PriceBranchID","InvoiceDate"]
+#   output_file_name: 'similarity_model_enhanced.parquet'
+
+#   weights: {"ProductMixSim": 0.227,
+#             "QtySim": 0.182,
+#             "RevenueSim": 0.182,
+#             "QuantitySim": 0.136,
+#             "SpendSim": 0.136,
+#             "OrderFreqSim": 0.045,
+#             "NumOrdersSim": 0.045,
+#             "OrderChannelSim": 0.019,
+#             "ProjectTypeSim": 0.028
+#             }
+
+# similarity_model_existing : 
+#   output_file_name: 'similarity_model_existing.parquet'
+#   column_mapping: {
+#     "BILL TO_CustomerID": "BT_Cust_ID",
+#     "BILL TO_CustomerName": "BT_Cust_Name",
+#     "ProductID": "Product_ID",
+#     "InvoiceIDLine": "BuyLineID",
+#     "ExtendedPrice": "Ext_Price",
+#     "ExtendedCOGSCost": "Ext_Cost",
+#     "PriceClass": "PriceClass",
+#     "Rank1": "Price_Flag",
+#     "AdjDirectQty": "Direct",
+#     "AdjOrderQty": "Quantity",
+#     "PriceBranchGlRegionID": "GLRegionID",
+#     "CommodityCode": "CommodityCode",
+#     "Net Revenue": "Spend"
+#     }
